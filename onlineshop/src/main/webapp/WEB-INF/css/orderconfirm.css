@@ -1,0 +1,213 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul,li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+a:hover{
+	color: #FF0000;
+}
+#header{
+	width: 1000px;
+	height: 200px;
+	background-color: #F4DEDE;
+	margin: 0 auto;
+}
+#top{
+	width: 1000px;
+	height: 30px;
+	background-color: #D7D7D7;
+	position: relative;
+}
+#top ul{
+	position: absolute;
+}
+#top ul,li{
+	display: inline-block;
+}
+#top ul li{
+	line-height: 30px;
+	padding: 0 10px;
+	font-family:"微软雅黑"; 
+	font-size: 13px;
+}
+.message-l{
+	left: 50px;
+}
+.message-r{
+	right: 50px;
+}
+#search{
+	width: 1000px;
+	height: 170px;
+	position: relative;
+}
+#headlogo{
+	display: block;
+	height: 90px;
+	width: 200px;
+	position: absolute;
+	top: 40px;
+	left: 100px;
+}
+#searchbox{
+	height: 50px;
+	width: 500px;
+	position: absolute;
+	top: 60px;
+	left: 350px;
+}
+#searchinput{
+	height: 46px;
+	width: 396px;
+	border: 2px solid #FF0000;
+	float: left;
+}
+#searchsubmit{
+	height: 50px;
+	width: 100px;
+	background: #FF0000;
+	color: #FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 18px;
+	border:none;
+	float: left;
+}
+#contain,#order,#confirm{
+	width: 1000px;
+	margin: 30px auto;
+}
+#selectaddress{
+	width: 1000px;
+}
+#selectaddress li{
+	width: 200px;
+	height: 100px;
+	padding: 5px;
+	margin: 10px;
+	font-size: 14px;
+	position: relative;
+	cursor:pointer;
+}
+#selectaddress li div:last-child{
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+.selectaddress li a{
+	margin: 5px 5px;
+}
+.selectlogistics li{
+	width: 150px;
+	height: 50px;
+	padding: 5px;
+	margin: 10px;
+	margin-right: 20px;
+	font-size: 14px;
+	cursor:pointer;
+	text-align: center;
+	display: table-cell;
+    vertical-align: middle;
+}
+.selectlogistics li img{
+	margin: 0 5px;
+}
+.selected{
+	border: 1px solid #FFA557;
+}
+#cart{
+	width: 1000px;
+	margin: 20px auto;
+}
+#carthead{
+	height: 50px;
+	background-color: #C0C0C0;
+}
+#carthead div{
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+#carthead:after{
+	clear: both;
+}
+#select,.select,#price,.price,#subtotal,.subtotal,#operation,.operation{
+	width: 100px;
+}
+#count,.count{
+	width: 200px;
+}
+#introduction,.introduction{
+	width: 498px;
+}
+#items div{
+	float: left;
+	height: 100px;
+	margin: 10px 0;
+	line-height: 100px;
+	text-align: center;
+}
+#items li{
+	border: 1px solid #D8D8D8;
+	border-top: none;
+}
+#items li:after{
+	clear: both;
+}
+.introduction img{
+	width: 80px;
+	height: 80px;
+	vertical-align: middle;
+}
+.introduction a:last-child{
+	display:inline-block;
+	width: 300px;
+	line-height: 1em;
+	font-size: 13px;
+}
+#paybox{
+	float: right;
+	border: 2px solid #f40;
+	padding: 10px;
+	margin: 10px;
+}
+#passwordbox{
+	float: right;
+}
+#paypassword{
+	height: 20px;
+	font-size: 15px;
+}
+#confirm button{
+	float: right;
+	width: 150px;
+	height: 40px;
+	font-size: 18px;
+	line-height: 40px;
+	background-color: #f40;
+	padding: 0 20px;
+	color: white;
+	cursor: pointer;
+}
+#bottom{
+	margin: 50px 0; 	
+	text-align: center;
+}
+#bottom hr{
+	width: 1000px;
+	margin:0 auto;
+	background-color: #FF5400;
+	height: 1px;
+}
+#bottom p{
+	margin: 0 auto;
+	font-size: 15px;
+	font-family: "微软雅黑";
+	color: #868686;
+}

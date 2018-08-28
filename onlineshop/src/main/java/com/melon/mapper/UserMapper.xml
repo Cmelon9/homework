@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.UserMapper">  
+
+	<select id="getTopSells" resultType="com.melon.po.Product">
+		select * from productlist order by sells DESC LIMIT 0,5
+	</select>
+
+	<insert id="register" parameterType="com.melon.po.User">
+		insert into userlist (username,password,telphone) values (#{username},#{password},#{telphone})
+	</insert>
+
+	<select id="login" parameterType="com.melon.po.User" resultType="com.melon.po.User">
+		select * from userlist where username = #{username} AND password = #{password}
+	</select>
+
+	<select id="usernameIsExist" parameterType="String" resultType="String">
+		select username from userlist where username = #{username}
+	</select>
+
+	<select id="favouriteIsExist" parameterType="com.melon.po.Favourite" resultType="com.melon.po.Favourite">
+		select * from favouritelist where productId = #{productId}
+	</select>
+	
+	<insert id="collect" parameterType="com.melon.po.Favourite">
+		insert into favouritelist (userId,productId) VALUES (#{userId},#{productId})
+	</insert>
+	
+	<select id="checkPassword" parameterType="com.melon.po.User" resultType="com.melon.po.User">
+		select * from userlist where id = #{id} AND password = #{password}
+	</select>
+	
+	<select id="getMyFavourite" parameterType="com.melon.po.User" resultType="com.melon.po.Product">
+		SELECT
+			productlist.id,
+			productlist.productName,
+			productlist.productPic,
+			productlist.productPrice
+		FROM
+			productlist,
+			favouritelist
+		WHERE
+			favouritelist.userId = #{id}
+		AND favouritelist.productId = productlist.id
+	</select>
+	
+	<select id="getMyAddress" parameterType="com.melon.po.User" resultType="com.melon.po.Address">
+		select * from addresslist where userId = #{id}
+	</select>
+	
+	<update id="modifyPassword" parameterType="com.melon.po.User">
+		update userlist SET password=#{password} where id=#{id}
+	</update>
+	
+	<insert id="addAddress" parameterType="com.melon.po.Address">
+		insert into addresslist (address,receiver,telphone,userId) values (#{address},#{receiver},#{telphone},#{userId})
+	</insert>
+	
+	<delete id="deleteAddress" parameterType="int">
+		delete from addresslist where id = #{addressId}
+	</delete>
+	
+	<sql id="search">
+		<if test="productCategory != null">
+			AND productCategory = #{productCategory}
+		</if>
+		<if test="productName != null">
+			AND productName LIKE '%${productName}%'
+		</if>
+	</sql>
+	<select id="searchProducts" parameterType="com.melon.po.Product" resultType="com.melon.po.Product">
+		select * from productlist
+		<where>
+			<include refid="search"></include>
+		</where>
+		<if test="index != null">
+			limit #{index},10
+		</if>
+	</select>
+	
+	<select id="getProductCount" resultType="int" parameterType="com.melon.po.Product">
+		select count(*) from productlist 
+		<where>
+			<if test="productCategory != null">
+				AND productCategory = #{productCategory}
+			</if>
+			<if test="productName != null">
+			AND productName LIKE '%${productName}%'
+			</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.OrderMapper">
+
+	<resultMap type="com.melon.po.Item" id="item">
+		<id property="id" column="id" />
+		<result property="userId" column="userId" />
+		<result property="orderNum" column="orderNum" />
+		<result property="productId" column="productId" />
+		<result property="productCount" column="productCount" />
+		<result property="subtotal" column="subtotal" />
+	</resultMap>
+
+	<select id="getItems" parameterType="int"
+		resultType="com.melon.po.Item">
+		SELECT * from itemlist where userId = #{userId} AND
+		orderNum is NULL
+	</select>
+
+	<update id="updateItem" parameterType="com.melon.po.Item">
+		UPDATE itemlist SET
+		orderNum = #{orderNum} WHERE productId = #{product.id} AND userId = #{userId} AND orderNum is NULL
+	</update>
+
+	<insert id="balance" parameterType="com.melon.po.Order">
+		INSERT INTO orderlist
+		(orderNum,userId,createTime,total,addressId) VALUES
+		(#{orderNum}, #{userId}, #{createTime}, #{total}, #{addressId})
+	</insert>
+
+	<update id="updateProfit" parameterType="com.melon.po.Item">
+		UPDATE productlist
+		SET
+		sells = sells + #{productCount},
+		profit = (productPrice - buyingPrice) * sells
+		WHERE
+		id = #{product.id}
+	</update>
+	
+	<resultMap type="com.melon.po.Order" id="orders">
+		<id property="id" column="id"/>
+		<result property="orderNum" column="orderNum"/>
+		<result property="createTime" column="createTime"/>
+		<result property="total" column="total"/>
+		<result property="orderStatus" column="orderStatus"/>
+		<association property="address" javaType="com.melon.po.Address">
+			<id property="id" column="id"/>
+			<result property="receiver" column="receiver"/>
+			<result property="address" column="address"/>
+			<result property="telphone" column="telphone"/>
+		</association>
+	</resultMap>
+	
+	<sql id="getOrders">
+		<if test="id == null">
+			AND orderlist.addressId = addresslist.id
+		</if>
+		<if test="id != null">
+			orderlist.userId = #{id}
+		AND orderlist.addressId = addresslist.id
+		</if>
+	</sql>
+	<sql id="orderLimit">
+		<if test="index != null">
+			limit #{index},2
+		</if>
+	</sql>
+	
+	<select id="getMyOrders" parameterType="com.melon.po.User" resultMap="orders">
+		SELECT
+			orderlist.id,
+			orderlist.orderNum,
+			orderlist.createTime,
+			orderlist.total,
+			orderlist.orderStatus,
+			addresslist.receiver,
+			addresslist.address,
+			addresslist.telphone
+		FROM
+			orderlist,
+			addresslist
+		<where>
+			<include refid="getOrders"></include>
+		</where>
+		Order By orderlist.createTime Desc
+			<include refid="orderLimit"></include>
+	</select>
+	
+	<resultMap type="com.melon.po.Item" id="orderItem">
+		<result property="productCount" column="productCount"/>
+		<result property="subtotal" column="subtotal"/>
+		<result property="commented" column="commented"/>
+		<association property="product" javaType="com.melon.po.Product">
+			<id property="id" column="id"/>
+			<result property="productName" column="productName"/>
+			<result property="productPrice" column="productPrice"/>
+			<result property="productPic" column="productPic"/>
+		</association>
+	</resultMap>
+	
+	<select id="getOrderItems" parameterType="String" resultMap="orderItem">
+		SELECT 
+			itemlist.productCount,
+			itemlist.subtotal,
+			itemlist.commented,
+			productlist.id,
+			productlist.productName,
+			productlist.productPrice,
+			productlist.productPic
+		FROM
+			itemlist,productlist
+		WHERE
+			itemlist.orderNum = #{orderNum}
+		AND itemlist.productId = productlist.id
+	</select>
+	
+	<update id="confirmReceive" parameterType="int">
+		update orderlist set orderstatus = '交易完成' where id = #{orderId}
+	</update>
+	
+	<update id="deliver" parameterType="int">
+		update orderlist set orderstatus = '等待收货' where id = #{orderId}
+	</update>
+
+</mapper>

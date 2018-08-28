@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.ProductMapper">
+
+	<insert id="productComment" parameterType="com.melon.po.Comment">
+		insert into commentlist (productId,userId,content,commentTime) VALUES (#{productId},#{userId},#{content},#{commentTime})
+	</insert>
+	
+	<update id="updateCommented" parameterType="com.melon.po.Comment">
+		update itemlist SET commented=1 where productId=#{productId} AND orderNum=#{orderNum}
+	</update>
+	
+	<select id="getProductById" resultType="com.melon.po.Product" parameterType="int">
+		select * from productlist where id = #{productId}
+	</select>
+	
+	<resultMap type="com.melon.po.Comment" id="comments">
+		<result property="commentTime" column="commentTime"/>
+		<result property="content" column="content"/>
+		<association property="user" javaType="com.melon.po.User">
+			<id column="id" property="id"/>
+			<result column="username" property="username"/>
+		</association>
+	</resultMap>
+	<select id="getComments" parameterType="int" resultMap="comments">
+		SELECT
+			userlist.id,
+			userlist.username,
+			commentlist.commentTime,
+			commentlist.content
+		FROM
+			userlist,
+			commentlist
+		WHERE
+			commentlist.productId = #{productId}
+		AND commentlist.userId = userlist.id
+	</select>
+</mapper>

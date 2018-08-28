@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.CartMapper">
+
+	<insert id="addToCart" parameterType="com.melon.po.Item">
+		insert into itemlist
+		(userId, productId, productCount, subtotal) VALUES
+		(#{userId}, #{product.id}, #{productCount}, #{subtotal})
+	</insert>
+
+	<update id="updateCartItem" parameterType="com.melon.po.Item">
+		update itemlist SET
+		productCount=#{productCount} , subtotal=#{subtotal} where
+		productId = #{productId}
+	</update>
+
+	<select id="searchExistItem" parameterType="com.melon.po.Item"
+		resultType="com.melon.po.Item">
+		select * from itemlist where 
+		userId = #{userId} AND
+		productId = #{product.id} AND 
+		orderNum is NUll
+	</select>
+	
+	<resultMap type="com.melon.po.Item" id="items">
+		<result column="productCount" property="productCount"/>		
+		<result column="subtotal" property="subtotal"/>
+		<association property="product" javaType="com.melon.po.Product">
+			<result column="id" property="id"/>
+			<result column="productPic" property="productPic"/>
+			<result column="productName" property="productName"/>
+			<result column="productPrice" property="productPrice"/>
+		</association>
+	</resultMap>
+	
+	<sql id="getItemSelector">
+		<if test="userId != null">
+			AND itemlist.userId = #{userId}
+		</if>
+		<if test="productId != null">
+			AND itemlist.productId = #{productId}
+			AND productlist.id = #{productId}
+		</if>
+		<if test="productId == null ">
+			AND itemlist.productId = productlist.id
+		</if>
+		<if test="orderNum == null">
+			AND itemlist.orderNum IS NULL
+		</if>
+	</sql>
+	
+	<select id="myCart" parameterType="com.melon.po.Item" resultMap="items">
+		SELECT
+			productlist.id,
+			productlist.productPic,
+			productlist.productName,
+			productlist.productPrice,
+			itemlist.productCount,
+			itemlist.subtotal
+		FROM
+			itemlist,
+			productlist
+		<where>
+			<include refid="getItemSelector"></include>
+		</where>
+		<!-- WHERE
+			itemlist.orderNum IS NULL
+		AND itemlist.userId = #{userId}
+		AND itemlist.productId = productlist.id -->
+	</select>
+	
+	<update id="reduceCount" parameterType="com.melon.po.Item">
+		UPDATE itemlist
+		SET subtotal = subtotal - subtotal / productCount,
+		 productCount = productCount - 1
+		WHERE
+			userId = #{userId}
+		AND productId = #{productId}
+		AND productCount > 1
+	</update>
+	
+	<update id="addCount" parameterType="com.melon.po.Item">
+		UPDATE itemlist
+		SET subtotal = subtotal + subtotal / productCount,
+		 productCount = productCount + 1
+		WHERE
+			userId = #{userId}
+		AND productId = #{productId}
+	</update>
+	
+	<update id="modifyProductCount" parameterType="com.melon.po.Item">
+		UPDATE itemlist
+		SET subtotal = subtotal / productCount * #{productCount},
+		 productCount = #{productCount}
+		WHERE
+			userId = #{userId}
+		AND productId = #{productId}
+	</update>
+
+</mapper>

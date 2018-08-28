@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.AdminMapper">
+
+	<insert id="addProduct" parameterType="com.melon.po.Product">
+		insert into productlist (productName,productPrice,productPic,buyingPrice,productCategory) values
+		(#{productName},#{productPrice},#{productPic},#{buyingPrice},#{productCategory})
+	</insert>
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete from productlist where id=#{id}
+	</delete>
+	
+	<update id="editProduct" parameterType="com.melon.po.Product">
+		update productlist SET productName=#{productName},productPrice=#{productPrice},buyingPrice=#{buyingPrice},productCategory=#{productCategory}
+		where id=#{id}
+	</update>
+
+	<select id="getOrderCount" resultType="int">
+		select count(1) from orderlist
+	</select>
+	
+	<select id="getProducts" parameterType="int" resultType="com.melon.po.Product">
+		select * from productlist limit #{index},5
+	</select>
+	
+	<select id="getProductCount" resultType="int">
+		select count(1) from productlist
+	</select>
+	
+	<select id="getUsers" parameterType="int" resultType="com.melon.po.User">
+		select * from userlist where level = 1 limit #{index},5
+	</select>
+	
+	<select id="getUserCount" resultType="int">
+		select count(1) from userlist
+	</select>
+	
+	<delete id="deleteUser" parameterType="int">
+		delete from userlist where id=#{id}
+	</delete>
+</mapper>

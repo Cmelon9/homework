@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 自动加载注解处理器映射器和处理器适配器 -->
+	<mvc:annotation-driven />
+
+	<!-- 处理静态资源 -->
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/img/" mapping="/img/**"></mvc:resources>
+
+	<!-- 开启注解扫描controller -->
+	<context:component-scan
+		base-package="com.melon.controller,com.melon.service.impl"></context:component-scan>
+
+	<!-- 前端控制器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value=""></property>
+		<property name="suffix" value=""></property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+	</bean>
+
+	<!-- 使用multipartResolver上传图片 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 文件最大值 -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/mycart"/>
+			<mvc:mapping path="/addtocart"/>
+			<mvc:mapping path="/collect"/>
+			<!-- <mvc:mapping path="/addProduct"/>
+			<mvc:mapping path="/getOrders"/>
+			<mvc:mapping path="/getProducts"/>
+			<mvc:mapping path="/getUsers"/>
+			<mvc:mapping path="/modifyProductCount"/>
+			<mvc:mapping path="/reduceCount"/>
+			<mvc:mapping path="/addCount"/>
+			<mvc:mapping path="/creatOrder"/>
+			<mvc:mapping path="/balance"/>
+			<mvc:mapping path="/myOrder"/>
+			<mvc:mapping path="/confirmReceive"/>
+			<mvc:mapping path="/deliver"/>
+			<mvc:mapping path="/commentProduct"/>
+			<mvc:mapping path="/logout"/>
+			<mvc:mapping path="/myFavourite"/>
+			<mvc:mapping path="/modifyPassword"/>
+			<mvc:mapping path="/addressManage"/>
+			<mvc:mapping path="/deleteAddress"/> -->
+			<bean class="com.melon.interceptor.LoginJudgeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>
