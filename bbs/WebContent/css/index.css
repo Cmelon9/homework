@@ -1,0 +1,188 @@
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+a{
+	color: #EEEEEE;
+	text-decoration:none;
+	margin-right: 10px;
+}
+.header, .content, .foot, .guide{
+	width: 980px;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+.header{
+	height: 100px;
+	margin-bottom: 10px;
+	background-color: #c0c0c0;
+}
+.header img{
+	width: 300px;
+	height: 60px;
+	padding-left: 20px;
+}
+.header a{
+	font-size: 15px;
+	color: #EEEEEE;
+	padding-left: 20px;
+}
+.welcome{
+	height:30px;
+	width:200px;
+	float: right;
+}
+.welcome p{
+	width: 150px;
+	margin: 0;
+	float: left;
+	color: #EEEEEE;
+}
+.welcome a{
+	float: left;
+	color: #EEEEEE;
+}
+.guide{
+	height: 25px;
+	margin-bottom: 10px;
+}
+.guide_tittle{
+	width: 150px;
+	height: 25px;
+	float: left;
+}
+.guide_tittle h3{
+	margin:0;
+	font-size: 20px;
+}
+.guide_list{
+	width: 100px;
+	height: 25px;
+	float: left;
+}
+.guide_list a{
+	color: #222222;
+}
+.guide_list a:hover{
+	color: #FF0000;
+}
+.guide form{
+	margin-right: 50px;
+}
+.guide form> input:nth-of-type(2){
+	width: 60px;
+	background-color: #222222;
+	color: #EEEEEE;
+}
+.content{
+	min-height:500px;
+	margin-bottom: 10px;
+}
+.post span, a{
+	color: #222222;
+}
+.post_out{
+	width: 958px;
+	height: 50px;
+	border-bottom: 1px dashed #CC9900;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.reply_num{
+	float: left;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 10px;
+	text-align:center;
+	overflow:hidden;
+}
+.post_show{
+	height: 50px;
+	width: 608px;
+	float: left;
+}
+.post_show p{
+	font-size: 15px;
+	font-family: "ºÚÌå";
+}
+.poster{
+	float: left;
+	height: 50px;
+	width: 100px;
+	text-align:center;
+}
+.last_time{
+	line-height: 50px;
+	text-align:center;
+	float: left;
+	height: 50px;
+	width: 200px;
+}
+.foot{
+	height: 600px;
+	background-color: #808080;
+}
+.foot h3{
+	text-align: center;
+	color: #CC9900;
+}
+#tittle_box{
+	height: 30px;
+	width: 960px;
+	margin-bottom: 10px;
+}
+.post_family{
+	height: 30px;
+	width: 150px;
+	float: left;
+}
+.family_select, .select_box{
+	float: left;
+}
+.family_select{
+	margin-left: 5px;
+	color: #FFFFFF;
+	font-size: 15px;
+}
+.tittle_name{
+	float: left;
+	height: 30px;
+	width: 50px;
+	line-height: 30px;
+	text-align: center;
+	color: #FF0000;
+}
+#tittle_text{
+	float: left;
+	height: 30px;
+	width: 700px;
+}
+#tittle{
+	height: 30px;
+	width: 700px;
+	line-height: 30px;
+	font-size: 20px;
+}
+#post_content{
+	text-align: center;
+	height: 350px;
+	width: 960px;
+	margin-top: 20px;
+}
+#content{
+	font-size: 15px;
+}
+.foot_button{
+	width: 900px;
+	height: 30px;
+	text-align: right;
+}
+.foot_button input{
+	height: 30px;
+	width: 120px;
+	font-size: 15px;
+	border: 1px solid #CC9900;
+	cursor: pointer;
+}

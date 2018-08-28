@@ -1,0 +1,67 @@
+h2{
+	padding: 0;
+	margin: 0;
+}
+span{
+	font-size: 20px;
+	letter-spacing: 5px;
+}
+.header, .register_box{
+	width: 980px;
+	margin: 0 auto;
+}
+.header{
+	height: 100px;
+	margin-bottom: 10px;	
+	background-color: #c0c0c0;
+}
+.header img{
+	width: 300px;
+	height: 60px;
+	padding-left: 20px;
+}
+.register_box{
+	height: 400px;
+}
+.tittle{
+	text-align: center;
+	width: 978px;
+	height: 50px;
+	line-height: 50px;
+}
+.information_box{
+	margin-top: 10px;
+	width: 978px;
+	height: 350px;
+}
+.information{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+.input{
+	height: 30px;
+	font-size: 18px;
+}
+.box{
+	float: left;
+	width: 100px;
+	height: 30px;
+}
+.span{
+	float: left;
+	width: 100px;
+	height: 30px;
+	text-align: center;
+}
+.butttons{
+	width: 978px;
+	height: 50px;
+	text-align: center;
+}
+.button{
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+}

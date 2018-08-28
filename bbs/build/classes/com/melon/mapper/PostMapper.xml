@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.melon.mapper.PostMapper">  
+
+	<insert id="publish" parameterType="com.melon.po.PostUser">
+		INSERT into posts (tittle,userId,content,postTime,postFamily,replyNum) VALUES
+		(#{tittle},#{user.id},#{content},#{postTime},#{postFamily},#{replyNum})
+	</insert>
+	
+	<sql id="searchPost">
+		<if test="user == null">
+			and posts.userId = userlist.id
+		</if>
+		<if test="postFamily != null">
+			and posts.postFamily = #{postFamily}
+		</if>
+		<if test="user != null">
+			and userlist.id = #{user.id}
+		</if>
+	</sql>
+	
+	<select id="searchPost" parameterType="postUser" resultMap="postContent">
+		SELECT
+			posts.id postId,
+			posts.tittle,
+			posts.content,
+			posts.postTime,
+			posts.replyNum,
+			userlist.head,
+			userlist.username
+		FROM
+			posts,userlist
+		<where>
+			<include refid="searchPost"></include>
+		</where>
+	</select>
+	
+	<select id="searchPostByKey" parameterType="postUser" resultMap="postContent">
+		SELECT
+			posts.id postId,
+			posts.tittle,
+			posts.content,
+			posts.postTime,
+			posts.replyNum,
+			userlist.head,
+			userlist.username
+		FROM
+			posts,
+			userlist
+		WHERE
+			posts.userId = userlist.id AND
+			(posts.tittle LIKE '%${tittle}%' OR
+			posts.content LIKE '%${content}%')
+	</select>
+	
+	<resultMap type="com.melon.po.PostUser" id="postContent">
+		<id property="id" column="postId"/>
+		<result property="tittle" column="tittle"/>
+		<result property="content" column="content"/>
+		<result property="postTime" column="postTime"/>
+		<result property="replyNum" column="replyNum"/>
+		<association property="user" javaType="com.melon.po.User">
+			<id property="id" column="userId"/>
+			<result property="head" column="head"/>
+			<result property="username" column="username"/>
+		</association>
+	</resultMap>
+	
+	<select id="getPostContent" parameterType="java.lang.Integer" resultMap="postContent">
+		SELECT 
+			posts.id postId, 
+			posts.tittle,
+			posts.content,
+			posts.postTime,
+			posts.replyNum,
+			userlist.id userId,
+			userlist.head,
+			userlist.username
+		FROM
+			posts,userlist
+		WHERE
+			posts.id=#{id} AND posts.userId = userlist.id
+	</select>
+	
+	<resultMap type="replyUser" id="replyList">
+		<id property="id" column="replyId"/>
+		<result property="replyContent" column="replyContent"/>
+		<result property="replyTime" column="replyTime"/>
+		<result property="stair" column="stair"/>
+		<association property="user" javaType="com.melon.po.User">
+			<id property="id" column="userId"/>
+			<result property="username" column="username"/>
+			<result property="head" column="head"/>
+		</association>
+	</resultMap>
+	
+	<select id="getPostReply" parameterType="java.lang.Integer" resultMap="replyList">
+		SELECT
+			reply.id replyId,
+			reply.replyContent,
+			reply.stair,
+			reply.replyTime,
+			userlist.id userId,
+			userlist.username,
+			userlist.head
+		FROM
+			reply,userlist
+		WHERE
+			#{id} = reply.postId AND
+			reply.userId = userlist.id
+	</select>
+	
+	<insert id="replyPost" parameterType="reply">
+		INSERT INTO reply (
+			postId,
+			userId,
+			replyContent,
+			stair,
+			replyTime
+		)
+		VALUES
+			(
+				#{postId},
+				#{userId},
+				#{replyContent},
+				#{stair},
+				#{replyTime}
+			)
+	</insert>
+	<update id="updateReplyNum" parameterType="java.lang.Integer">
+		UPDATE posts SET posts.replyNum = #{replyNum} WHERE posts.id = #{postId}
+	</update>
+	
+	<delete id="deletePost" parameterType="int">
+		delete from posts where id = #{id}
+	</delete>
+	
+</mapper>

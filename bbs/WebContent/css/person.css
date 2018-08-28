@@ -1,0 +1,139 @@
+a{
+	text-decoration: none;
+	margin-right: 10px;
+}
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.header{
+	width: 980px;
+	height: 200px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	border: 1px solid black;
+	position: relative;
+	background-color: #c0c0c0;
+}
+.header h3{
+	text-align: center;
+	color: #CC9900;
+}
+.head_pic{
+	width: 150px;
+	height: 150px;
+	float: left;
+	position: absolute;
+	bottom: 0;
+}
+.head_pic img{
+	width: 150px;
+	height: 150px;
+}
+.option{
+	margin-left: 200px;
+	position: absolute;
+	bottom: 0;
+	float: left;
+}
+.option a{
+	color: #FFFFFF;
+}
+.option a:hover{
+	color: #FF0000;
+}
+.welcome{
+	height:30px;
+	width:200px;
+	float: right;
+	margin-bottom: 0;
+}
+.welcome p{
+	width: 150px;
+	margin: 0;
+	float: left;
+}
+.welcome a{
+	float: left;
+}
+.content{
+	width: 980px;
+	height: 500px;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+.modify{
+	width: 980px;
+	height: 500px;
+	text-align: center;
+}
+.information_box{
+	margin-top: 10px;
+	width: 978px;
+	height: 400px;
+}
+.information{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+.input{
+	height: 30px;
+	font-size: 18px;
+}
+.box{
+	float: left;
+	width: 100px;
+	height: 30px;
+}
+.span{
+	float: left;
+	width: 100px;
+	height: 30px;
+	text-align: center;
+}
+.butttons{
+	width: 978px;
+	height: 50px;
+	text-align: center;
+}
+.button{
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+}
+.post_out{
+	width: 958px;
+	height: 50px;
+	border: solid 1px red;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.reply_num{
+	float: left;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align:center;
+	overflow:hidden;
+}
+.post_show{
+	height: 50px;
+	width: 608px;
+	float: left;
+}
+.poster{
+	float: left;
+	height: 50px;
+	width: 100px;
+	text-align:center;
+}
+.last_time{
+	line-height: 50px;
+	text-align:center;
+	float: left;
+	height: 50px;
+	width: 200px;
+}
